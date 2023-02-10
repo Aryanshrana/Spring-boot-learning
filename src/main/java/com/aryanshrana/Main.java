@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.*;
 
 @SpringBootApplication
     //@EnableAutoConfiguration
@@ -20,12 +21,22 @@ public class Main {
     }
     @GetMapping("/greet")
     public GreetResponse greet(){
-        return new GreetResponse("Hello Aryansh");
+
+        return new GreetResponse(
+                "Hello Aryansh",
+                List.of("Java","javascript","Golang","Kotlin"),
+                new Person("Aryansh",21,8000)
+        );
     }
 
-    //record GreetResponse(String greet){}
+    record Person(String name,int age,double savings){}
+    record GreetResponse(
+            String greet,
+            List<String> favprogramminglanguages,
+            Person person
+    ){}
 
-    class GreetResponse{
+    /*class GreetResponse{
         private final String greet;
 
         GreetResponse(String greet){
@@ -35,5 +46,5 @@ public class Main {
         public String getGreet(){
             return greet;
         }
-    }
+    }*/
 }
