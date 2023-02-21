@@ -1,18 +1,30 @@
 package com.aryanshrana;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@Entity
 public class Customer {
-    private int id;
+    @Id
+    @SequenceGenerator(
+            name = "customer_id_sequence",
+            sequenceName = "customer_id_sqquence"
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "customer_id_sequence"
+    )
+    private Integer id;
     private String name;
     private String email;
-    private int age;
+    private Integer age;
 
     public Customer(
-            int id,
+            Integer id,
             String name,
             String email,
-            int age){
+            Integer age){
         this.id = id;
         this.name = name;
         this.email = email;
@@ -22,7 +34,7 @@ public class Customer {
     public Customer() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -46,7 +58,7 @@ public class Customer {
         this.email = email;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -59,7 +71,7 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return id == customer.id && age == customer.age && Objects.equals(name, customer.name) && Objects.equals(email, customer.email);
+        return Objects.equals(id, customer.id) && Objects.equals(age, customer.age) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email);
     }
 
     @Override
